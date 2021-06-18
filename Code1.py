@@ -1,4 +1,5 @@
 import numpy as np
+import getpass
 
 print("----------------------Welcome To SPS-2.0----------------------")
 print("To continue please fill up the following details.")
@@ -18,14 +19,14 @@ countPlayer = 0
 for i in range(1, number_of_players + 1):
     countCode = 0
     print("Player", i, "enter the code for the following:")
-    Codes[countPlayer, countCode] = input("Stone: ")
+    Codes[countPlayer, countCode] = getpass.getpass("Stone: ")
 
     countCode += 1
 
-    Codes[countPlayer, countCode] = input("Paper:")
+    Codes[countPlayer, countCode] = getpass.getpass("Paper:")
     countCode += 1
 
-    Codes[countPlayer, countCode] = input("Scissors: ")
+    Codes[countPlayer, countCode] = getpass.getpass("Scissors: ")
     countPlayer += 1
 
     print("")
@@ -35,7 +36,7 @@ InputCode = np.empty(number_of_players, int)
 
 for i in range(number_of_players):
     print("Player", i + 1, ": Enter your choice in terms of code")
-    InputCode[i] = input()
+    InputCode[i] = getpass.getpass()
 
 sps = np.empty(number_of_players, int)
 for i in range(number_of_players):
