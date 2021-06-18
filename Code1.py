@@ -81,7 +81,7 @@ while exit_loop == 0:
         
     print("Do you want to play again??")
     while True:
-        answer = input('Y for yes and N for no: ')
+        answer = input('Y for yes and N for no: ').upper()
         if answer == 'N':
             print("\n\nGame ends!")
             exit_loop = 1;
