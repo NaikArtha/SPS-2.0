@@ -1,4 +1,4 @@
-import numpy as np, getpass, os
+import numpy as np
 
 print("----------------------Welcome To SPS-2.0----------------------")
 print("To continue please fill up the following details.")
@@ -18,55 +18,62 @@ countPlayer = 0
 for i in range(1, number_of_players + 1):
     countCode = 0
     print("Player", i, "enter the code for the following:")
-    Codes[countPlayer, countCode] = getpass.getpass("Stone: ")
-   
+    Codes[countPlayer, countCode] = input("Stone: ")
+
     countCode += 1
-    print("Player", i, "enter the code for the following:")
-    Codes[countPlayer, countCode] = getpass.getpass("Paper: ")
+
+    Codes[countPlayer, countCode] = input("Paper:")
     countCode += 1
-    
-    print("Player", i, "enter the code for the following:")
-    Codes[countPlayer, countCode] = getpass.getpass("Scissors: ")
+
+    Codes[countPlayer, countCode] = input("Scissors: ")
     countPlayer += 1
-    
+
     print("")
     print("")
 
-    
-player1 = {
-  Codes[0][0] : 'Stone',
-  Codes[0][1] : 'Paper',
-  Codes[0][2] : 'Scissor',
-}
-player2 = {
-  Codes[1][0] : 'Stone',
-  Codes[1][1] : 'Paper',
-  Codes[1][2] : 'Scissor',
-}
+InputCode = np.empty(number_of_players, int)
 
+for i in range(number_of_players):
+    print("Player", i + 1, ": Enter your choice in terms of code")
+    InputCode[i] = input()
 
-#print(player1[player1Code])
-#print(player2[player2Code])
+sps = np.empty(number_of_players, int)
+for i in range(number_of_players):
+    if InputCode[i] == Codes[i][0]:
+        sps[i] = 1  # Stone
 
+    elif InputCode[i] == Codes[i][1]:
+        sps[i] = 2  # Paper
 
+    elif InputCode[i] == Codes[i][2]:
+        sps[i] = 3  # Scissors
 
-RESULTS = {
-    ("Stone", "Scissor"): "Stone beats scissors, Player 1 wins! ",
-    ("Paper", "Stone"): "Paper beats stone, tough luck! Player 1 wins! ",
-    ("Scissor", "Paper"): "Scissors me timbers! Scissors cuts paper! Player 1 wins",
-    ("Scissor", "Stone"): "Stone beats scissors,  Player 2 wins!",
-    ("Stone","Paper"): "Paper beats stone, Player 2 wins!",
-    ("Paper", "Scissor"): "Scissors me timbers! Scissors cuts paper! Player 2 wins"
-}
+score = np.empty(number_of_players, int)
 
-def game_play(input1, input2):
-  
-  print(RESULTS.get((input1, input2), "It's a draw!"))
+for i in range(number_of_players):
+    for j in range(number_of_players):
+        if j != i:
+            if sps[i] == sps[j]:
+                score[i] = 0
+            elif sps[i] == 1 and sps[j] == 2:
+                score[i] = 0
+            elif sps[i] == 1 and sps[j] == 3:
+                score[i] = 1
+            elif sps[i] == 2 and sps[j] == 3:
+                score[i] = 0
+print("\n\n")
 
+for i in range(number_of_players):
+    if score[i] != 0:
+        print("Player", i+1, "WINS!!!")
 
-while True:
-  player1Code = int(input("Enter your code: "))
-  player2Code = int(input("Enter your code: "))
-  game_play(player1[player1Code], player2[player2Code])
-  if input("Do you want to quit? Else press Enter to continue").lower() in {"y", "yes"}:
-    break
+doesntWin = 0
+
+for i in range(number_of_players):
+    if score[i] == 0:
+        doesntWin+=1
+
+if doesntWin == number_of_players:
+    print("OOPS!! NO ONE WON")
+
+print("\n\nGame ends!")
