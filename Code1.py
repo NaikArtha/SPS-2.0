@@ -14,67 +14,79 @@ while True:
         break
 print("")
 print("")
-Codes = np.empty((number_of_players, 3), int)
-countPlayer = 0
-for i in range(1, number_of_players + 1):
-    countCode = 0
-    print("Player", i, "enter the code for the following:")
-    Codes[countPlayer, countCode] = getpass.getpass("Stone: ")
+exit_loop = 0
+while exit_loop == 0:
+    Codes = np.empty((number_of_players, 3), int)
+    countPlayer = 0
+    for i in range(1, number_of_players + 1):
+        countCode = 0
+        print("Player", i, "enter the code for the following:")
+        Codes[countPlayer, countCode] = getpass.getpass("Stone: ")
 
-    countCode += 1
+        countCode += 1
 
-    Codes[countPlayer, countCode] = getpass.getpass("Paper:")
-    countCode += 1
+        Codes[countPlayer, countCode] = getpass.getpass("Paper:")
+        countCode += 1
 
-    Codes[countPlayer, countCode] = getpass.getpass("Scissors: ")
-    countPlayer += 1
+        Codes[countPlayer, countCode] = getpass.getpass("Scissors: ")
+        countPlayer += 1
 
-    print("")
-    print("")
+        print("")
+        print("")
 
-InputCode = np.empty(number_of_players, int)
+    InputCode = np.empty(number_of_players, int)
 
-for i in range(number_of_players):
-    print("Player", i + 1, ": Enter your choice in terms of code")
-    InputCode[i] = getpass.getpass()
+    for i in range(number_of_players):
+        print("Player", i + 1, ": Enter your choice in terms of code")
+        InputCode[i] = getpass.getpass()
 
-sps = np.empty(number_of_players, int)
-for i in range(number_of_players):
-    if InputCode[i] == Codes[i][0]:
-        sps[i] = 1  # Stone
+    sps = np.empty(number_of_players, int)
+    for i in range(number_of_players):
+        if InputCode[i] == Codes[i][0]:
+            sps[i] = 1  # Stone
 
-    elif InputCode[i] == Codes[i][1]:
-        sps[i] = 2  # Paper
+        elif InputCode[i] == Codes[i][1]:
+            sps[i] = 2  # Paper
 
-    elif InputCode[i] == Codes[i][2]:
-        sps[i] = 3  # Scissors
+        elif InputCode[i] == Codes[i][2]:
+            sps[i] = 3  # Scissors
 
-score = np.empty(number_of_players, int)
+    score = np.empty(number_of_players, int)
 
-for i in range(number_of_players):
-    for j in range(number_of_players):
-        if j != i:
-            if sps[i] == sps[j]:
-                score[i] = 0
-            elif sps[i] == 1 and sps[j] == 2:
-                score[i] = 0
-            elif sps[i] == 1 and sps[j] == 3:
-                score[i] = 1
-            elif sps[i] == 2 and sps[j] == 3:
-                score[i] = 0
-print("\n\n")
+    for i in range(number_of_players):
+        for j in range(number_of_players):
+            if j != i:
+                if sps[i] == sps[j]:
+                    score[i] = 0
+                elif sps[i] == 1 and sps[j] == 2:
+                    score[i] = 0
+                elif sps[i] == 1 and sps[j] == 3:
+                    score[i] = 1
+                elif sps[i] == 2 and sps[j] == 3:
+                    score[i] = 0
+    print("\n\n")
 
-for i in range(number_of_players):
-    if score[i] != 0:
-        print("Player", i+1, "WINS!!!")
+    for i in range(number_of_players):
+        if score[i] != 0:
+            print("Player", i+1, "WINS!!!")
 
-doesntWin = 0
+    doesntWin = 0
 
-for i in range(number_of_players):
-    if score[i] == 0:
-        doesntWin+=1
+    for i in range(number_of_players):
+        if score[i] == 0:
+            doesntWin+=1
 
-if doesntWin == number_of_players:
-    print("OOPS!! NO ONE WON")
-
-print("\n\nGame ends!")
+    if doesntWin == number_of_players:
+        print("OOPS!! NO ONE WON")
+        
+    print("Do you want to play again??")
+    while True:
+        answer = input('Y for yes and N for no: ')
+        if answer == 'N':
+            print("\n\nGame ends!")
+            exit_loop = 1;
+            break
+        elif answer == 'Y':
+            break
+        else:
+            print("Invalid input!!")
